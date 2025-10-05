@@ -1,0 +1,146 @@
+.add-product-form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    width: 83%;
+}
+
+
+.add-product-form form{
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+}
+
+.add-product-form form .add-product-form-body{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: start;
+    width: 100%;
+}
+
+.form-block{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+}
+
+.form-block .form-segment{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    width: 80%;
+    margin: 0.3rem 0px;
+}
+
+.form-block-text{
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    margin: 0.3rem 0px;
+}
+
+.form-block-text textarea {
+    width: 100%;
+}
+
+.form-block .form-segment label{
+    margin: 0.3rem 0px;
+    color: rgb(47, 47, 47);
+}
+
+.form-block .form-segment input{
+    width: 100%;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid gray;
+}
+
+.form-block .form-segment select{
+    width: 100%;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid gray;
+}
+
+.add-product-form-footer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 2rem 0px;
+}
+
+.add-product-form-footer button{
+    margin: 0px 10px;
+    color: white;
+    background: black;
+    border-radius: 5px;
+    padding: 5px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-product-form-footer button .add-product-spinner{
+    scale: 0.5;
+}
+
+.add-product-form-heading{
+    width: 90%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.add-product-form-attachments{
+    margin: 1rem 0;
+    width: 90%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.add-product-form-attachments div {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.add-product-form-attachments div label {
+    padding: 10px 15px;
+    color: white;
+    background-color: black;
+    width: fit-content;
+    margin: 0.5rem 0;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-product-form-attachments div label:hover{
+    background-color: #333;
+}
+
+.add-product-form-attachments div .product_img_file_div {
+    padding: 8px 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: start;
+    border: 1px solid rgb(180, 180, 180);
+    margin: 0.5rem 0;
+}

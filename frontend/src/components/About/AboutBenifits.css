@@ -1,0 +1,50 @@
+.about-benifits {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100svh;
+}
+
+.about-benifits div {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.about-benifits div .about-benifits-right {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    height: 100%;
+}
+
+.about-benifits div .about-benifits-right .about-benifits-right-point {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    width: fit-content;
+    margin: 0.8rem 0;
+}
+
+.about-benifits div .about-benifits-right .about-benifits-right-point p {
+    margin-bottom: 0;
+    margin-left: 1rem;
+}
+
+.about-benifits div .about-benifits-right h2 {
+    font-weight: bold;
+    font-size: 2.5rem;
+    margin: 2rem 0;
+    margin-left: 1rem;
+}
+
+.about-benifits div .about-benifits-left {
+    width: 50%;
+}
+
+.about-benifits div .about-benifits-left img {
+    width: 100%;
+}

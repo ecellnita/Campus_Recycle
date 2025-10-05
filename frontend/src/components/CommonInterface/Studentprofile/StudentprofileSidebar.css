@@ -1,0 +1,106 @@
+.buyer-sidebar-main {
+  background-color: #fff;
+  bottom: 0;
+  left: 0;
+  margin-top: 0;
+  position: fixed;
+  top: 0;
+  -webkit-transition: all 0.2s ease;
+  -ms-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+  width: 280px;
+  z-index: 995;
+  padding: 30px 40px;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+}
+@media (max-width: 1199.98px) {
+  .buyer-sidebar-main {
+    width: 200px;
+  }
+}
+@media (max-width: 991.98px) {
+  .buyer-sidebar-main {
+    top: 60px;
+    margin-left: -575px;
+    -webkit-transition: all 0.4s ease;
+    -ms-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+    z-index: 1041;
+    background: #fff;
+  }
+}
+@media (max-width: 575.98px) {
+  .buyer-sidebar-main {
+    width: 225px;
+  }
+}
+
+.buyer-sidebar-main .logo{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.buyer-sidebar-main .logo img{
+  width: 50%;
+}
+
+.buyer-sidebar-main .logo h5{
+  font-size: large;
+}
+
+.buyer-sidebar-navigation{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    margin-top: 1rem;
+}
+
+.buyer-sidebar-navigation .navigation{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 3rem;
+}
+
+.buyer-sidebar-navigation .navigation a{
+    text-decoration: none;
+    color: rgb(57, 57, 57);
+    padding: 5px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.buyer-sidebar-navigation .navigation a:hover{
+    color: red;
+}
+
+.buyer-sidebar-navigation .navigation a svg{
+  margin-right: 1rem;
+}
+
+.buyer-sidebar-main .profile-info{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.buyer-sidebar-main .profile-info img{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+.buyer-sidebar-main .profile-info p{
+    margin: 1rem 0px;
+}

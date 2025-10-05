@@ -1,0 +1,114 @@
+.seller-top-navbar{
+    height: 8vh;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    background-color: #fefefe;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+    width: 100%;
+    padding: 5px 20px;
+}
+
+.seller-top-navbar .profile{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.seller-top-navbar .profile img{
+    width: 8%;
+    border-radius: 50%;
+    margin: 0px 10px;
+}
+
+.seller-top-navbar .profile div{
+    cursor: pointer;
+}
+
+.seller-top-navbar .profile div h6{
+    font-weight: 500;
+    margin: 0;
+    font-size: medium;
+}
+
+.seller-top-navbar .profile div p{
+    margin: 0;
+    font-size: small;
+}
+
+.seller-top-navbar .dropdown{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 10px;
+    position: absolute;
+    top: 3.5rem;
+    width: 10%;
+    height: 18vh;
+}
+
+.seller-top-navbar .dropdown a{
+    padding: 10px 0px;
+    cursor: pointer;
+    width: 100%;
+    text-decoration: none;
+    color: rgb(104, 104, 104);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.seller-top-navbar .dropdown a:hover{
+    background-color: #f4f4f4;
+    color: black;
+}
+.seller-top-navbar .dropdown {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 50px;
+    right: 0;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  
+  .seller-top-navbar .dropdown a,
+  .seller-top-navbar .dropdown button {
+    padding: 10px 15px;
+    text-align: left;
+    text-decoration: none;
+    color: #333;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 14px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+  
+  .seller-top-navbar .dropdown a:hover,
+  .seller-top-navbar .dropdown button:hover,
+  .seller-top-navbar .dropdown a:focus,
+  .seller-top-navbar .dropdown button:focus {
+    background-color: #f0f0f0;
+    outline: none;
+  }
+  
+  .seller-top-navbar .dropdown .logout-button {
+    border: none;
+    background: none;
+    color: #333;
+    cursor: pointer;
+  }
+  
+  .seller-top-navbar .dropdown .logout-button:hover {
+    color: #f00; /* Example color for hover state */
+    font-weight: bold;
+  }
+  

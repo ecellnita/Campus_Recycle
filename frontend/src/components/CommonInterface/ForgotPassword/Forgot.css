@@ -1,0 +1,185 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+
+.forgot-pass-main-contanier{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: 'Montserrat', sans-serif !important;
+}
+
+.forgot-pass-form-container{
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+}
+
+.forgot-pass-form-container form{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.form-top{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0px;
+}
+
+.form-top h2{
+    font-size: larger;
+    font-weight: 700;
+}
+
+.form-subject{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px 0px;
+}
+
+.form-subject h3{
+    font-size: large;
+    font-weight: 400;
+}
+
+.form-body{
+    width: 100%;
+    background: #f6f5f7;
+    border-radius: 10px !important;
+  	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
+			0 10px 10px rgba(0,0,0,0.22) !important;
+    padding: 30px 30px; 
+}
+
+.form-components{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0px;
+}
+
+.form-components label{
+    width: 100%;
+    font-size: medium;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.form-components input{
+    background-color: #f8fafb;
+	border: 1px solid #d9d9d9;
+	padding: 8px 15px;
+	margin: 8px 0;
+	width: 100%;
+    border-radius: 5px;
+}
+
+.form-components button {
+	border-radius: 8px;
+	border: 1px solid #38dfae;
+	background-color: #38dfae;
+	color: #FFFFFF;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 10px 30px;
+	letter-spacing: 1px;
+	transition: transform 80ms ease-in;
+    width: 100%;
+	cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-components button:active {
+	transform: scale(0.95);
+}
+
+.form-components button:focus {
+	outline: none;
+}
+
+.form-components button.ghost {
+	background-color: transparent;
+	border-color: #FFFFFF;
+}
+
+.forgot-pass-password-div{
+    display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+}
+
+.forgot-pass-password-div svg{
+	position: absolute;
+	right: 40px;
+}
+
+.forgot-pass-success-msg{
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+    align-items: center;
+}
+
+.forgot-pass-success-msg img{
+    width: 15%;
+    margin-right: 10px;
+}
+
+.forgot-pass-success-msg span{
+    font-size: medium;
+}
+
+.forgot-pass-error-msg{
+    font-size: 14px;
+	color: rgb(255, 35, 35);
+	text-align: left;
+	width: 100%;
+	padding: 0px 5px;
+}
+
+.forgot-pass-btn-spinner{
+    margin: 0px 10px;
+}
+
+.forgot-pass-btn-disabled{
+    background-color: #87ffdb !important;
+	border-color: #87ffdb !important;
+	cursor: not-allowed !important;
+}
+
+@media (max-width: 820px) {
+    .forgot-pass-form-container{
+        width: 75%;
+    }
+
+    .forgot-pass-main-contanier{
+        height: 80vh;
+    }
+}
+
+@media (max-width: 540px) {
+    .forgot-pass-form-container{
+        width: 90%;
+    }
+
+    .forgot-pass-main-contanier{
+        height: 70vh;
+    }
+}

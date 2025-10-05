@@ -1,0 +1,110 @@
+.landing-reviews{
+    margin: 40px 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.review-play-pause-btn{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    margin: 20px 10px;
+}
+
+.reviews{
+    width: 100%;
+}
+
+.landing-reviews h4{
+    font-size: 35px;
+    font-weight: 700;
+}
+
+.review{
+    display: flex;
+    flex-direction: column;
+    width: 65%;
+    border: 2px solid #c8d6e5;
+    border-radius: 5px;
+    padding: 30px;
+    cursor: pointer;
+    max-height: 320px;
+    border-radius: 24px;
+}
+
+.review-top-comment-main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.review-user-image img{
+    max-width: 390px;
+    width: 330px;
+    height: 390px;
+    object-fit: cover;
+    margin-bottom: -30px !important;
+    border-radius: 24px;
+}
+
+.landing-review-marquee{
+    height: 530px;
+}
+
+.review-user-about{
+    display: flex;
+    flex-direction: column;
+    padding: 10px 30px;
+    justify-content: center;
+}
+
+.review-paragraph{
+    margin: 10px 0px;
+    color: #566474;
+    width: 95%;
+    font-size: large;
+}
+
+.review-user-about p{
+    font-weight: 700;
+    font-size: large;
+    margin: 10px 0px;
+    color: #566474;
+}
+
+.review-top-comment-icon{
+    display: flex;
+    justify-content: end;
+    margin-top: -50px !important;
+    margin-right: -50px !important;
+}
+
+@media (max-width: 540px) {
+    .review-top-comment-main{
+        flex-direction: column-reverse;
+    }
+    .review{
+        width: 30%;
+        padding: 20px;
+        max-height: 400px;
+    }
+    .review-user-image img{
+        max-width: 390px;
+        width: 280px;
+        height: 290px;
+    }
+    .review-user-about{
+        display: flex;
+        flex-direction: column;
+        padding: 5px 15px;
+    }
+    .landing-review-marquee{
+        height: 770px;
+    }
+    .review-top-comment-icon{
+        margin-top: -40px !important;
+        margin-right: -30px !important;
+    }
+}

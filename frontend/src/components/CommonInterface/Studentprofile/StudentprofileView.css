@@ -1,0 +1,179 @@
+.profile-view{
+    width: 82%;
+    display: flex;
+    padding: 10px;
+    flex-direction: column;
+    overflow-y: scroll;
+}
+
+.profile-view .top{
+    display: flex;
+    padding: 20px;
+    height: 20vh;
+    justify-content: start;
+    background-color: #f5f5f1;
+    background-image: linear-gradient(315deg, #f5f5f1 0%, #98F08A 74%);
+}
+
+.profile-view .top img{
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    margin-top: 65px;
+    margin-left: 1rem;
+    border: 4px solid white;
+}
+
+.profile-view .profile-details{
+    margin-top: 5rem;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.profile-view .profile-details div p{
+    margin: 0;
+    color: rgb(108, 108, 108);
+    font-weight: 500;
+}
+
+.profile-view .profile-details .total-orders{
+    width: 11%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: medium;
+    font-weight: 500;
+    padding-right: 30px;
+    cursor: pointer;
+}
+
+.profile-view .your-orders-stat{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 25px;
+    width: 70%;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 10px;
+    margin-left: 2.5rem;
+}
+
+.profile-view .your-orders-stat .head{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    border-bottom: 1px solid rgb(226, 226, 226);
+}
+
+.profile-view .your-orders-stat .head span{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 40%;
+}
+
+.profile-view .your-orders-stat .head span p{
+    margin: 0;
+}
+
+.profile-view .edit-profile-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.profile-view .edit-profile-section .edit-profile-form {
+    border-radius: 10px;
+    background: rgb(245, 245, 245);
+    padding: 10px;
+    width: 50%;
+}
+
+.profile-view .edit-profile-section .edit-profile-form .edit-profile-input-1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.profile-view .edit-profile-section .edit-profile-form .edit-profile-input-1 div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    width: 98%;
+    margin: 0.4rem 0.5rem;
+}
+
+.profile-view .edit-profile-section .edit-profile-form .edit-profile-input-1 div label {
+    margin: 0.5rem 0;
+}
+
+.profile-view .edit-profile-section .edit-profile-form .edit-profile-input-1 div input {
+    width: 100%;
+    border-radius: 5px;
+    background: transparent;
+    border: 1px solid gray;
+    padding: 5px 10px;
+}
+
+.profile-view .edit-profile-section .edit-profile-form .edit-profile-input-1 div select {
+    width: 100%;
+    border-radius: 5px;
+    background: transparent;
+    border: 1px solid gray;
+    padding: 5px 10px;
+}
+
+.profile-view .edit-profile-section .edit-profile-form .edit-profile-input-1 div textarea {
+    width: 100%;
+    border-radius: 5px;
+    background: transparent;
+    border: 1px solid gray;
+    padding: 5px 10px;
+}
+
+.profile-view .edit-profile-section .edit-profile-form .edit-profile-input-1 button {
+    margin: 1rem 0rem;
+    padding: 8px 45px;
+    border-radius: 8px;
+    background-color: #38df70;
+    color: white;
+    border: 1px solid #38df70;
+    font-size: 15px;
+    letter-spacing: 1px;
+}
+
+.profile-view .edit-profile-section .edit-profile-form .edit-profile-input-0 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem 0;
+}
+
+.profile-view .edit-profile-section .edit-profile-form .edit-profile-input-0 .edit-profile-img-overlay {
+    background-color: #00000036;
+    position: absolute;
+    color: white;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    z-index: 10;
+}
+
+.profile-view .edit-profile-section .edit-profile-form .edit-profile-input-0 img {
+    border-radius: 100%;
+    height: 120px;
+    width: 120px;
+    cursor: pointer;
+}

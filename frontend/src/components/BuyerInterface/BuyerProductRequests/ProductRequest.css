@@ -1,0 +1,201 @@
+.buyer-product-request{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    justify-content: start;
+    align-items: start;
+    width: 82%;
+}
+
+.buyer-product-request .buyer-product-request-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    width: 100%;
+}
+
+.requested-product-item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    height: 13svh;
+    width: 100%;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    border-radius: 5px;
+    margin: 0.5rem 0px;
+}
+
+.requested-product-item .requested-product-item-img{
+    width: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+
+.requested-product-item .requested-product-item-img p{
+    margin: 0;
+    font-size: small;
+}
+
+.requested-product-item .requested-product-item-img b{
+    font-size: medium;
+}
+
+.requested-product-item .requested-product-item-img img{
+    width: 120px;
+    height: 70px;
+    border-radius: 5px;
+    margin-right: 1rem;
+}
+
+.requested-product-item .requested-product-item-status{
+    color: rgb(114, 114, 114);
+}
+
+.requested-product-item .requested-product-item-status p{
+    margin: 0;
+    font-size: 15px;
+}
+
+.requested-product-item .requested-product-item-btns{
+    width: 40%;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.requested-product-item .requested-product-item-btns button{
+    margin: 0px 5px;
+}
+
+.requested-product-item .requested-product-item-btns .delete-btn{
+    color: red;
+    background-color: transparent !important;
+    border: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.requested-product-item .requested-product-item-btns .schedule-btn{
+    background-color: black;
+    border: 2px solid black;
+    border-radius: 5px;
+    padding: 6px 20px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.requested-product-item .requested-product-item-btns .schedule-btn .product-meet-schedule-spinner{
+    scale: 0.5;
+}
+
+.schedule-product-request-form-btn-section{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+}
+
+.modal-body .schedule-data-view-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 5px;
+}
+
+.modal-body .schedule-data-view-container .schedule-data-view-component{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.modal-body .schedule-data-view-container .schedule-data-view-component .schedule-data-view-component-content{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.modal-body .schedule-data-view-container .schedule-data-view-component .schedule-data-view-component-content b{
+    font-size: 14px;
+}
+
+.modal-body .schedule-data-view-container .schedule-data-view-component .schedule-data-view-component-content p{
+    font-size: 14px;
+}
+
+.modal-body .schedule-data-view-container .schedule-data-view-buttons{
+    display: flex;
+    width: 100%;
+    padding: 5px;
+    justify-content: end;
+    align-items: center;
+}
+
+.modal-body .schedule-data-view-container .schedule-data-view-buttons button{
+    background: black;
+    border: 2px solid black;
+    border-radius: 5px;
+    padding: 5px 20px;
+    color: white;
+    margin: 5px;
+}
+
+.item-badge-product-request{
+    position: absolute;
+    
+}
+
+.modal-body .complete-transaction-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.modal-body .complete-transaction-container .otp-input{
+    padding: 5px;
+    border: 1px solid rgb(210, 210, 210);
+    border-radius: 8px;
+    width: 10%;
+    margin: 5px;
+    text-align: center;
+}
+
+.modal-body .complete-transaction-container .otp-input:focus {
+    border: 1px solid rgb(179, 179, 179);
+}
+
+.modal-body .complete-transaction-container .otp-input::-webkit-outer-spin-button,
+.modal-body .complete-transaction-container .otp-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.modal-body .complete-transaction-footer button{
+    padding: 8px 15px;
+    color: white;
+    background-color: black;
+    border-radius: 8px;
+    border: 2px solid black;
+    margin-top: 1rem;
+}
+
+.modal-body .complete-transaction-footer-err-box {
+    color: red;
+    font-size: small;
+}
+
+.modal-body .report-container textarea{
+    border: 1px solid rgb(210, 210, 210);
+    border-radius: 5px;
+    padding: 10px;
+}

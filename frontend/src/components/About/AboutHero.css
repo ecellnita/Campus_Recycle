@@ -1,0 +1,42 @@
+.about-hero {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100svh;
+}
+
+.about-hero .content {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.about-hero .content .about-hero-left {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-direction: column;
+}
+
+.about-hero .content .about-hero-left h2{
+    margin: 2rem 0;
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.about-hero .content .about-hero-left p{
+    width: 70%;
+    font-size: large;
+    line-height: 2rem;
+}
+
+.about-hero .content .about-hero-right {
+    width: 50%;
+}
+
+.about-hero .content .about-hero-right img{
+    width: 100%;
+}

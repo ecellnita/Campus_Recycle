@@ -1,0 +1,60 @@
+.seller-welcome-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.seller-welcome-page {
+  background-image: url("../../../images/welcome-bg.jpg"), url("../../../images/welcome-bg.jpg");
+  background-position: right 24rem top 2rem, left 24rem bottom 2rem;
+  background-repeat: no-repeat;
+  background-size: 30%;
+}
+
+.seller-welcome-page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
+    rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+  border-radius: 15px;
+  width: 40%;
+  padding: 50px 30px;
+  background-color: #fff;
+}
+
+.seller-welcome-page-container .heading {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0px;
+}
+
+.seller-welcome-page-container .body {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 0.5rem 0px;
+  color: rgb(84, 84, 84);
+  font-weight: 500;
+}
+
+.seller-welcome-page-container .get-started-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem 0px;
+}
+
+.seller-welcome-page-container .get-started-button button {
+  padding: 8px 25px;
+  border-radius: 20px;
+  color: white;
+  background: #5b63f6;
+  border: 2px solid #5b63f6;
+}

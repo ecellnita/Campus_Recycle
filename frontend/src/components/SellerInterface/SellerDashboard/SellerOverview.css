@@ -1,0 +1,100 @@
+.seller-dashboard-overview{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    width: 84%;
+    padding: 10px;
+}
+
+.seller-dashboard-overview .top{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px 20px;
+    align-items: start;
+    margin: 1rem 0px;
+}
+
+.seller-dashboard-overview .top p{
+    color: rgb(97, 97, 97);
+    font-size: large;
+    font-weight: 400;
+}
+
+.seller-dashboard-overview .overview-body{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    width: 100%;
+    padding: 20px;
+}
+
+.seller-dashboard-overview .overview-body h5{
+    margin-bottom: 2rem;
+}
+
+.seller-dashboard-overview .overview-body .overview-body-cards{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.seller-dashboard-overview .overview-body .overview-body-card{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    padding: 20px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    border-radius: 10px;
+    width: 31%;
+}
+
+.seller-dashboard-overview .overview-body .overview-body-card img{
+    width: 100%;
+}
+
+.seller-dashboard-overview .overview-body .overview-body-card .overview-body-card-badge{
+    background-color: rgb(232, 232, 232);
+    color: rgb(151, 151, 151);
+    font-size: smaller;
+    padding: 2px 5px;
+    font-weight: 500;
+    margin: 5px 0px;
+}
+
+.seller-dashboard-overview .overview-body .overview-body-card h4{
+    margin: 0.5rem 0px;
+}
+
+.seller-dashboard-overview .overview-body .overview-body-card p{
+    font-size: medium;
+    color: rgb(97, 97, 97);
+    margin: 0.5rem 0px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid rgb(235, 232, 232);
+}
+
+.seller-dashboard-overview .overview-body .overview-body-card .card-footer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 10px;
+    width: 100%;
+}
+
+.seller-dashboard-overview .overview-body .overview-body-card .card-footer{
+    font-weight: 500;
+}
+
+.seller-dashboard-overview .overview-body .overview-body-card .card-footer button{
+    background-color: black;
+    color: white;
+    font-weight: 500;
+    border-radius: 10px;
+    font-size: small;
+    padding: 8px 20px;
+}
