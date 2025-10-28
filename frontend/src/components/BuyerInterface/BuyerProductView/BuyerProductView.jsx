@@ -10,6 +10,7 @@ function BuyerProductView() {
     const { product, setProduct } = GetContext();
 
     const [isRequested, setIsRequested] = useState(false);
+    const [isRequesting, setIsRequesting] = useState(false);
     const [productQuantity, setProductQuantity] = useState(0);
 
     const { productid } = useParams();
@@ -52,6 +53,11 @@ function BuyerProductView() {
 
     const handleProductRequest = async() => {
         if(isRequested) return;
+        if (productQuantity === 0){
+            alert("Please select at least one product");
+            return;
+        }
+        setIsRequesting(true);
 
         const user = localStorage.getItem('campusrecycleuser');
         const userObj = JSON.parse(user);
@@ -75,6 +81,8 @@ function BuyerProductView() {
             }
           } catch (error) {
             console.log(error);
+          } finally {
+            setIsRequesting(false);
           }
     }
 
@@ -211,8 +219,8 @@ function BuyerProductView() {
                                 <Minus/>
                             </span>
                         </div>
-                        <button className='btn' onClick={handleProductRequest} disabled={isRequested} style={{ cursor: isRequested ? 'no-drop' : 'pointer', backgroundColor: isRequested ? '#63cd81' : '' }}>
-                            {isRequested ? 'Requested' : 'Request'}
+                        <button className='btn' onClick={handleProductRequest} disabled={isRequested || isRequesting} style={{ cursor: isRequested ? 'no-drop' : 'pointer', backgroundColor: isRequested ? '#63cd81' : '' }}>
+                            {isRequested ? 'Requested' : isRequesting ? 'Requesting...' : 'Request'}
                         </button>
                     </div>
                 </div>

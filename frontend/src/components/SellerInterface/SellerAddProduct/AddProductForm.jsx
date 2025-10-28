@@ -11,7 +11,7 @@ function AddProductForm() {
     productname: "",
     productdescription: "",
     price: "",
-    status: "",
+    status: "For Sale",
     quantity: "",
     categoryid: "",
   });
@@ -84,6 +84,9 @@ function AddProductForm() {
           categoryid: "",
         });
         console.log("Product added");
+        alert("Product added successfully");
+        setProductImageFiles([]);
+        imagesInputRef.current.value = null;
         addProductFormRef.current.reset();
         setIsLoading(false);
         const user = localStorage.getItem('campusrecycleuser');
@@ -93,6 +96,7 @@ function AddProductForm() {
         userObj.products = allProductIds;
         localStorage.setItem('campusrecycleuser', JSON.stringify(userObj));
       }else{
+        alert(`Error: ${response.data.message}`);
         setIsLoading(false);
       }
     } catch (error) {
@@ -249,7 +253,7 @@ function AddProductForm() {
           >
             Cancel
           </button>
-          <button type="sumbit" style={{padding: isLoading ? '1px 10px' : ''}}>
+          <button type="sumbit" disabled={isLoading} style={{padding: isLoading ? '1px 10px' : ''}}>
             Add Product {isLoading && <Spinner className="add-product-spinner"/>}
           </button>
         </div>
