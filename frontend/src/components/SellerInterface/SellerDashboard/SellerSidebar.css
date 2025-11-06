@@ -63,6 +63,26 @@
   .seller-sidebar-main {
     width: 225px;
   }
+
+  .seller-sidebar-main .logo img {
+    width: 40%;
+  }
+
+  .seller-sidebar-navigation .navigation div a {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+
+  .seller-sidebar-navigation .navigation div a svg {
+    width: 18px;
+    height: 18px;
+    margin-right: 0.75rem;
+  }
+
+  .seller-sidebar-navigation .navigation span p {
+    font-size: 0.7rem;
+    padding: 0px 8px;
+  }
 }
 
 .seller-sidebar-main .logo {
