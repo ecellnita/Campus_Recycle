@@ -12,7 +12,7 @@ function AddProductForm() {
     productname: "",
     productdescription: "",
     price: "",
-    status: "For Sale",
+    status: "Forsale",
     quantity: "",
     categoryid: "",
   });
@@ -163,167 +163,183 @@ function AddProductForm() {
     fetchAllCategories();
   }, []);
 
-
-
   const isFormValid = () => {
-  const { productname, productdescription, price, quantity, categoryid } = addProductData;
-  
+    const { productname, productdescription, price, quantity, categoryid } =
+      addProductData;
 
-  const isAllFieldsFilled =
-    productname.trim() !== "" &&
-    productdescription.trim() !== "" &&
-    price.trim() !== "" &&
-    quantity.trim() !== "" &&
-    categoryid.trim() !== "";
+    const isAllFieldsFilled =
+      productname.trim() !== "" &&
+      productdescription.trim() !== "" &&
+      price.trim() !== "" &&
+      quantity.trim() !== "" &&
+      categoryid.trim() !== "";
 
+    const hasMinImages = productImageFiles.length >= 6;
 
-  const hasMinImages = productImageFiles.length >= 6;
-
-  return isAllFieldsFilled && hasMinImages;
-};
+    return isAllFieldsFilled && hasMinImages;
+  };
 
   return (
     <div className="add-product-form">
-      <form onSubmit={handleSubmit} ref={addProductFormRef}>
-        <div className="add-product-form-heading">
-          <h3>Add New Product</h3>
-        </div>
-        <div className="add-product-form-body">
-          <div className="form-block">
-            <div className="form-segment">
-              <label htmlFor="productname">Product Name</label>
-              <input
-                type="text"
-                id="productname"
-                name="productname"
-                value={addProductData.productname}
-                onChange={handleOnChange}
-              />
+      <div className="left-add-product-form">
+        <form onSubmit={handleSubmit} ref={addProductFormRef}>
+          <div className="add-product-form-heading">
+            <h3>Add New Product</h3>
+          </div>
+          <div className="add-product-form-body">
+            <div className="form-block">
+              <div className="form-segment">
+                <label htmlFor="productname">Product Name</label>
+                <input
+                  type="text"
+                  id="productname"
+                  name="productname"
+                  value={addProductData.productname}
+                  onChange={handleOnChange}
+                />
+              </div>
+              <div className="form-segment">
+                <label htmlFor="price">Price</label>
+                <input
+                  type="number"
+                  id="price"
+                  name="price"
+                  value={addProductData.price}
+                  onChange={handleOnChange}
+                />
+              </div>
             </div>
-            <div className="form-segment">
-              <label htmlFor="price">Price</label>
-              <input
-                type="number"
-                id="price"
-                name="price"
-                value={addProductData.price}
-                onChange={handleOnChange}
-              />
+            <div className="form-block">
+           
+              <div className="form-segment">
+                <label htmlFor="quantity">Quantity</label>
+                <input
+                  type="number"
+                  id="quantity"
+                  name="quantity"
+                  value={addProductData.quantity}
+                  onChange={handleOnChange}
+                />
+              </div>
+              
             </div>
           </div>
-          <div className="form-block">
-            <div className="form-segment">
-              <label htmlFor="status">Status</label>
-              <select
-                id="status"
-                name="status"
-                value={addProductData.status}
-                onChange={handleOnChange}
-              >
-                <option value="Forsale">Forsale</option>
-                <option value="Sold">Sold</option>
-                <option value="Purchased">Purchased</option>
-              </select>
-            </div>
-            <div className="form-segment">
-              <label htmlFor="quantity">Quantity</label>
-              <input
-                type="number"
-                id="quantity"
-                name="quantity"
-                value={addProductData.quantity}
-                onChange={handleOnChange}
-              />
-            </div>
-            <div className="form-segment">
-              <label htmlFor="categoryid">Category</label>
-              <select
-                id="categoryid"
-                name="categoryid"
-                value={addProductData.categoryid}
-                onChange={handleOnChange}
-                required
-              >
-                <option>Select category</option>
-                {allCategories.map((category, i) => {
-                  return <option value={category._id}>{category.name}</option>;
-                })}
-              </select>
-            </div>
-          </div>
-        </div>
-        <div className="form-block-text">
-          <label htmlFor="productdescription">Product Description</label>
-          <textarea
-            type="text"
-            rows={10}
-            cols={10}
-            id="productdescription"
-            name="productdescription"
-            value={addProductData.productdescription}
-            onChange={handleOnChange}
-          />
-        </div>
-        <div className="add-product-form-attachments">
-          <div>
-            <label htmlFor="product_imaged">Upload Images</label>
-            <input
-              type="file"
-              id="product_imaged"
-              accept=".jpg, .png, .jpeg"
-              name="images"
-              ref={imagesInputRef}
-              onChange={(e) => productImagefilesOnchange(e)}
-              multiple
-              hidden
+          <div className="form-block-text">
+            <label htmlFor="productdescription">Product Description</label>
+            <textarea
+              type="text"
+              rows={10}
+              cols={10}
+              id="productdescription"
+              name="productdescription"
+              value={addProductData.productdescription}
+              onChange={handleOnChange}
             />
-            {productImageFiles.map((file, i) => {
-              return (
-                <div key={i} className="product_img_file_div">
-                  <span>{file.name.slice(0, 30) + "..."}</span>
-                  <X
-                    style={{ cursor: "pointer", margin: "0 5px" }}
-                    onClick={() => removeProductImageFile(file)}
-                  />
-                </div>
-              );
-            })}
-            {isImageAddErr && (
-              <p style={{ color: "red", fontSize: "15px", textAlign: "left" }}>
-                You must add minimum 6 images
-              </p>
-            )}
+          </div>
+          <div className="add-product-form-attachments">
+            <div>
+              <label htmlFor="product_imaged">Upload Images</label>
+              <input
+                type="file"
+                id="product_imaged"
+                accept=".jpg, .png, .jpeg"
+                name="images"
+                ref={imagesInputRef}
+                onChange={(e) => productImagefilesOnchange(e)}
+                multiple
+                hidden
+              />
+              {productImageFiles.map((file, i) => {
+                return (
+                  <div key={i} className="product_img_file_div">
+                    <span>{file.name.slice(0, 30) + "..."}</span>
+                    <X
+                      style={{ cursor: "pointer", margin: "0 5px" }}
+                      onClick={() => removeProductImageFile(file)}
+                    />
+                  </div>
+                );
+              })}
+              {isImageAddErr && (
+                <p
+                  style={{ color: "red", fontSize: "15px", textAlign: "left" }}
+                >
+                  You must add minimum 6 images
+                </p>
+              )}
+            </div>
+          </div>
+          <div className="add-product-form-footer">
+            <button
+              onClick={() =>
+                setAddProductData({
+                  productname: "",
+                  productdescription: "",
+                  price: "",
+                  status: "",
+                  quantity: "",
+                  categoryid: "",
+                })
+              }
+            >
+              Cancel
+            </button>
+            <button
+              type="sumbit"
+              disabled={isLoading && !isFormValid()}
+              style={{
+                padding: isLoading ? "1px 10px" : "",
+                opacity: isFormValid() ? 1 : 0.6,
+                cursor: isFormValid() ? "pointer" : "not-allowed",
+              }}
+            >
+              Add Product{" "}
+              {isLoading && <Spinner className="add-product-spinner" />}
+            </button>
+          </div>
+        </form>
+      </div>
+      <div className="right-add-product-form">
+        <div className="form-segment">
+          <div className="form-segment-top">
+            <label htmlFor="status">Status</label>
+          </div>
+
+          <div className="form-segment-bottom">
+            <select
+              id="status"
+              name="status"
+              value={addProductData.status}
+              onChange={handleOnChange}
+            >
+              <option value="Forsale">Forsale</option>
+              <option value="Sold">Sold</option>
+              <option value="Purchased">Purchased</option>
+            </select>
           </div>
         </div>
-        <div className="add-product-form-footer">
-          <button
-            onClick={() =>
-              setAddProductData({
-                productname: "",
-                productdescription: "",
-                price: "",
-                status: "",
-                quantity: "",
-                categoryid: "",
-              })
-            }
-          >
-            Cancel
-          </button>
-          <button
-            type="sumbit"
-            disabled={isLoading &&  !isFormValid()}
-             style={{
-    padding: isLoading ? "1px 10px" : "",
-    opacity: isFormValid() ? 1 : 0.6,
-    cursor: isFormValid() ? "pointer" : "not-allowed",
-  }}
-          >
-            Add Product{" "}
-            {isLoading && <Spinner className="add-product-spinner" />}
-          </button>
+
+        <div className="form-segment">
+          <div className="form-segment-top">
+            {" "}
+            <label htmlFor="categoryid">Category</label>
+          </div>
+          <div className="form-segment-bottom">
+            <select
+              id="categoryid"
+              name="categoryid"
+              value={addProductData.categoryid}
+              onChange={handleOnChange}
+              required
+            >
+              <option>Select category</option>
+              {allCategories.map((category, i) => {
+                return <option value={category._id}>{category.name}</option>;
+              })}
+            </select>
+          </div>
         </div>
-      </form>
+      </div>
     </div>
   );
 }
