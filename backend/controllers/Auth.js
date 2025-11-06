@@ -51,7 +51,7 @@ exports.sendotp=async (req,res)=>{
         })
     }
     catch(err){
-        console.log("Cannot send OTp");
+        console.log("Cannot send OTp: ", err);
         return res.json({
             success:false,
             message:"could not send OTP",
