@@ -4,6 +4,7 @@ import Spinner from "react-bootstrap/Spinner";
 import { apiConnector } from "../../../utils/Apiconnecter";
 import { authroutes } from "../../../apis/apis";
 import { X } from "lucide-react";
+import { toast } from "react-toastify";
 
 function AddProductForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -22,35 +23,40 @@ function AddProductForm() {
   const imagesInputRef = useRef();
   const addProductFormRef = useRef();
 
-  const fetchAllCategories = async() => {
+  const fetchAllCategories = async () => {
     try {
-        const api_header = { 
-          Authorization: `Bearer ${localStorage.getItem('campusrecycletoken')}`,
-          "Content-Type": "multipart/form-data"
-        };
-        const bodyData = {
-            // Need to write something
-        }
-        const response = await apiConnector("POST", authroutes.GET_ALL_CATEGORIES, bodyData, api_header);
-        console.log(response.data);
-        if (response.data.success) {
-            console.log("Categories fetched successfully");
-            setAllCategories(response.data.data);
-        }
+      const api_header = {
+        Authorization: `Bearer ${localStorage.getItem("campusrecycletoken")}`,
+        "Content-Type": "multipart/form-data",
+      };
+      const bodyData = {
+        // Need to write something
+      };
+      const response = await apiConnector(
+        "POST",
+        authroutes.GET_ALL_CATEGORIES,
+        bodyData,
+        api_header
+      );
+      console.log(response.data);
+      if (response.data.success) {
+        console.log("Categories fetched successfully");
+        setAllCategories(response.data.data);
+      }
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
-  }
+  };
 
   const handleOnChange = (e) => {
-    console.log(e.target.value)
+    console.log(e.target.value);
     setAddProductData({ ...addProductData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if(productImageFiles < 6){
+    if (productImageFiles < 6) {
       return setIsImageAddErr(true);
     }
 
@@ -59,20 +65,29 @@ function AddProductForm() {
     var formData = new FormData();
 
     for (var key in addProductData) {
-        formData.append(key, addProductData[key]);
+      formData.append(key, addProductData[key]);
     }
 
     for (let i = 0; i < imagesInputRef.current.files.length; i++) {
-      formData.append('images', productImageFiles[i], productImageFiles[i].name);
+      formData.append(
+        "images",
+        productImageFiles[i],
+        productImageFiles[i].name
+      );
     }
-    
+
     try {
-      console.log(addProductData)
-      const api_header = { 
-        Authorization: `Bearer ${localStorage.getItem('campusrecycletoken')}`,
-        "Content-Type": "multipart/form-data"
+      console.log(addProductData);
+      const api_header = {
+        Authorization: `Bearer ${localStorage.getItem("campusrecycletoken")}`,
+        "Content-Type": "multipart/form-data",
       };
-      const response = await apiConnector("POST", authroutes.ADD_PRODUCT, formData, api_header);
+      const response = await apiConnector(
+        "POST",
+        authroutes.ADD_PRODUCT,
+        formData,
+        api_header
+      );
       console.log(response.data);
       if (response.data.success) {
         setAddProductData({
@@ -84,19 +99,39 @@ function AddProductForm() {
           categoryid: "",
         });
         console.log("Product added");
-        alert("Product added successfully");
+
+        toast.success(" Product added Succesfully", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+
         setProductImageFiles([]);
         imagesInputRef.current.value = null;
         addProductFormRef.current.reset();
         setIsLoading(false);
-        const user = localStorage.getItem('campusrecycleuser');
+        const user = localStorage.getItem("campusrecycleuser");
         const userObj = JSON.parse(user);
         const allProductIds = userObj.products;
         allProductIds.push(response.data.data._id);
         userObj.products = allProductIds;
-        localStorage.setItem('campusrecycleuser', JSON.stringify(userObj));
-      }else{
-        alert(`Error: ${response.data.message}`);
+        localStorage.setItem("campusrecycleuser", JSON.stringify(userObj));
+      } else {
+        toast.error(` Error: ${response.data.message}`, {
+          position: "top-right",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
         setIsLoading(false);
       }
     } catch (error) {
@@ -107,26 +142,45 @@ function AddProductForm() {
 
   const productImagefilesOnchange = (e) => {
     var files = [];
-    for(let file of productImageFiles){
+    for (let file of productImageFiles) {
       files.push(file);
     }
-    for(let file of e.target.files){
+    for (let file of e.target.files) {
       console.log("file: ", file);
       files.push(file);
     }
-    setProductImageFiles(files); 
-  }
+    setProductImageFiles(files);
+  };
 
   const removeProductImageFile = (fileToDelete) => {
     const allFiles = productImageFiles;
-    const newFiles = allFiles.filter((file)=>file!==fileToDelete);
+    const newFiles = allFiles.filter((file) => file !== fileToDelete);
 
     setProductImageFiles(newFiles);
-  }
+  };
 
-  useEffect(()=>{
+  useEffect(() => {
     fetchAllCategories();
   }, []);
+
+
+
+  const isFormValid = () => {
+  const { productname, productdescription, price, quantity, categoryid } = addProductData;
+  
+
+  const isAllFieldsFilled =
+    productname.trim() !== "" &&
+    productdescription.trim() !== "" &&
+    price.trim() !== "" &&
+    quantity.trim() !== "" &&
+    categoryid.trim() !== "";
+
+
+  const hasMinImages = productImageFiles.length >= 6;
+
+  return isAllFieldsFilled && hasMinImages;
+};
 
   return (
     <div className="add-product-form">
@@ -192,11 +246,9 @@ function AddProductForm() {
                 required
               >
                 <option>Select category</option>
-                {
-                  allCategories.map((category, i)=>{
-                    return <option value={category._id}>{category.name}</option>
-                  })
-                }
+                {allCategories.map((category, i) => {
+                  return <option value={category._id}>{category.name}</option>;
+                })}
               </select>
             </div>
           </div>
@@ -222,21 +274,26 @@ function AddProductForm() {
               accept=".jpg, .png, .jpeg"
               name="images"
               ref={imagesInputRef}
-              onChange={(e)=>productImagefilesOnchange(e)}
+              onChange={(e) => productImagefilesOnchange(e)}
               multiple
               hidden
             />
-            {
-                productImageFiles.map((file, i)=>{
-                return <div key={i} className="product_img_file_div">
-                  <span>{file.name.slice(0, 30)+'...'}</span>
-                  <X style={{ cursor: 'pointer', margin: '0 5px' }} onClick={()=>removeProductImageFile(file)}/>
+            {productImageFiles.map((file, i) => {
+              return (
+                <div key={i} className="product_img_file_div">
+                  <span>{file.name.slice(0, 30) + "..."}</span>
+                  <X
+                    style={{ cursor: "pointer", margin: "0 5px" }}
+                    onClick={() => removeProductImageFile(file)}
+                  />
                 </div>
-              })
-            }
-            {
-              isImageAddErr && <p style={{ color: 'red', fontSize: '15px', textAlign: 'left' }}>You must add minimum 6 images</p>
-            }
+              );
+            })}
+            {isImageAddErr && (
+              <p style={{ color: "red", fontSize: "15px", textAlign: "left" }}>
+                You must add minimum 6 images
+              </p>
+            )}
           </div>
         </div>
         <div className="add-product-form-footer">
@@ -254,8 +311,17 @@ function AddProductForm() {
           >
             Cancel
           </button>
-          <button type="sumbit" disabled={isLoading} style={{padding: isLoading ? '1px 10px' : ''}}>
-            Add Product {isLoading && <Spinner className="add-product-spinner"/>}
+          <button
+            type="sumbit"
+            disabled={isLoading &&  !isFormValid()}
+             style={{
+    padding: isLoading ? "1px 10px" : "",
+    opacity: isFormValid() ? 1 : 0.6,
+    cursor: isFormValid() ? "pointer" : "not-allowed",
+  }}
+          >
+            Add Product{" "}
+            {isLoading && <Spinner className="add-product-spinner" />}
           </button>
         </div>
       </form>

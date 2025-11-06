@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import BuyerNavbar from '../components/BuyerInterface/BuyerNavbar/BuyerNavbar';
 import BuyerProductView from '../components/BuyerInterface/BuyerProductView/BuyerProductView';
 import { GetContext } from '../context/ProductsProvider';
