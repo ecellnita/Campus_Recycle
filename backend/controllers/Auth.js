@@ -28,13 +28,13 @@ exports.sendotp=async (req,res)=>{
                 message:"User already Registered",
             })
         }
-        const otp=otpgenerator.generate(6,{
+        let otp=otpgenerator.generate(6,{
             upperCaseAlphabets:false,
             lowerCaseAlphabets:false,
             specialChars:false,
         })
-        const checkotp=await Otp.findOne({otp});
-        if(checkotp){
+        let checkotp=await Otp.findOne({otp});
+        while(checkotp){
             otp=otpgenerator.generate(6,{
                 upperCaseAlphabets:false,
                 lowerCaseAlphabets:false,
@@ -43,18 +43,25 @@ exports.sendotp=async (req,res)=>{
             checkotp=await Otp.findOne({otp});
         }
 
-        const otpdata=await Otp.create({email,otp});
+        // Create OTP with timeout handling
+        const otpdata=await Promise.race([
+            Otp.create({email,otp}),
+            new Promise((_, reject) => 
+                setTimeout(() => reject(new Error('OTP creation timeout')), 30000)
+            )
+        ]);
+        
         res.json({
             success:true,
-            messsage:"OTP send Successfully",
+            message:"OTP sent Successfully",
             data:otpdata,
         })
     }
     catch(err){
-        console.log("Cannot send OTp");
+        console.log("Cannot send OTP: ", err);
         return res.json({
             success:false,
-            message:"could not send OTP",
+            message: err.message === 'OTP creation timeout' ? "Email service timeout. Please try again." : "Could not send OTP",
         })
     }
 }

@@ -19,15 +19,17 @@ const otpschema=new mongoose.Schema({
 
 otpschema.pre("save",async function(next){
     try{
-        console.log(this.email,this.otp);
+        console.log("Sending OTP to:", this.email, "OTP:", this.otp);
         const mailresponse=await mailsender(this.email,"Verification Email From NITASPACE",otptemplate(this.otp))
-        console.log("mail response is =>",mailresponse);
+        console.log("Mail response is =>", mailresponse?.messageId || "Email sent");
+        next();
     }
     catch(err){
-        console.log("Cannot save OTP");
+        console.log("Cannot send OTP email:");
         console.log(err.message);
+        // Pass the error to the next middleware to stop the save operation
+        next(new Error(`Failed to send OTP email: ${err.message}`));
     }
-    next();
 })
 
 
