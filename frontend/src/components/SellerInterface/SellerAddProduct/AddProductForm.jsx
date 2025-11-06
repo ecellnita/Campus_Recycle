@@ -164,6 +164,7 @@ function AddProductForm() {
                 id="status"
                 name="status"
                 value={addProductData.status}
+                defaultValue={'Forsale'}
                 onChange={handleOnChange}
               >
                 <option value="Forsale">Forsale</option>
