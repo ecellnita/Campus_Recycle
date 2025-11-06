@@ -250,7 +250,7 @@ function ProductrequestListItem({ request, handleDeleteProductRequest }) {
       <div
         class="modal fade"
         id={`delete_product_request_modal-${request._id}`}
-        tabindex="-1"
+        tabIndex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
@@ -291,7 +291,7 @@ function ProductrequestListItem({ request, handleDeleteProductRequest }) {
       <div
         class="modal fade"
         id={`schedule_product_request_modal-${request._id}`}
-        tabindex="-1"
+        tabIndex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
@@ -366,7 +366,7 @@ function ProductrequestListItem({ request, handleDeleteProductRequest }) {
       <div
         class="modal fade"
         id={`schedule_data_view_product_request_modal-${request._id}`}
-        tabindex="-1"
+        tabIndex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >

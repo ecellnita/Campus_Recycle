@@ -11,6 +11,8 @@ exports.createproduct=async (req,res)=>{
     try{
         const {id,email}=req.user;
         const imagearr=req.files.images;
+        console.log(req.files)
+
         const {productname,productdescription,price,status,quantity,categoryid}=req.body;
         if(!id || !email || !productname || !productdescription || !price || !status || !quantity || !categoryid){
             return res.json({
@@ -27,6 +29,9 @@ exports.createproduct=async (req,res)=>{
             })
         }
         var images=[];
+
+        console.log(imagearr)
+       
 
         for(i in imagearr){
             const imageurl=(await cloudinaryuploader(imagearr[i],process.env.FOLDER_NAME,1000,1000)).secure_url;
@@ -72,12 +77,15 @@ catch(err){
 
 exports.updateproduct=async (req,res)=>{
     try{
+    
         
         const {id,email}=req.user;
     
-        const imagearr=req?.files?.images;
+         const imagearr =  req.files['images[]']
         
         const {productid,productname,productdescription,price,status,quantity}=req.body;
+
+        console.log(req.body)
 
         const user=await User.findById(id);
         if(!user){
@@ -90,37 +98,42 @@ exports.updateproduct=async (req,res)=>{
         const productdetails=await Product.findById(productid);
         // console.log("productdetails are =>",productdetails)
 
+
+
         if(imagearr){
             for(i in imagearr){
                 const imageurl=(await cloudinaryuploader(imagearr[i],process.env.FOLDER_NAME,1000,1000)).secure_url;
                 images.push(imageurl);
             }
-            productdetails.images=images;
-        }
-
-        if(productname){
-            productdetails.productname=productname;
-        }
-        if(productdescription){
-            productdetails.productdescription=productdescription;
-        }
-        if(price){
-            productdetails.price=price;
 
         }
-        if(status){
-            productdetails.status=status;
-        }
-        if(quantity){
-            productdetails.quantity=quantity;
-        }
-        await productdetails.save();
+ 
 
-        const proupdated=await Product.findById(productid);
+         console.log(images)
+
+    
+
+    const respones =     await Product.findByIdAndUpdate( productid , {
+            productname,
+            productdescription,
+            price,
+            status,
+            quantity,
+            images}
+        )
+
+
+        console.log("hello")
+        
+
+
+
+
+    
         res.json({
             success:true,
             message:"Product updated successfully",
-            data:proupdated
+            data:respones
         })
 }
 catch(err){
