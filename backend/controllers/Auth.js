@@ -43,17 +43,27 @@ exports.sendotp=async (req,res)=>{
             checkotp=await Otp.findOne({otp});
         }
 
-        // Create OTP with timeout handling
-        const otpdata=await Promise.race([
-            Otp.create({email,otp}),
-            new Promise((_, reject) => 
-                setTimeout(() => reject(new Error('OTP creation timeout')), 30000)
-            )
-        ]);
+        // Create OTP entry in database first
+        const otpdata = await Otp.create({email, otp});
+        
+        // Send email asynchronously using queue system for better reliability
+        setImmediate(async () => {
+            try {
+                const {sendEmailWithRetry} = require("../utils/EmailQueue");
+                const {otptemplate} = require("../mailtemplates/VerificationOtp");
+                
+                console.log("Adding OTP email to queue for:", email);
+                await sendEmailWithRetry(email, "Verification Email From NITASPACE", otptemplate(otp));
+                
+            } catch (emailError) {
+                console.log("Failed to queue OTP email:", emailError.message);
+                // Email will be retried automatically by the queue system
+            }
+        });
         
         res.json({
             success:true,
-            message:"OTP sent Successfully",
+            message:"OTP generated successfully. Please check your email (may take a few moments).",
             data:otpdata,
         })
     }

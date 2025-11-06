@@ -5,19 +5,24 @@ exports.mailsender=async (email,title,body)=>{
     try{
         let transporter=nodemailer.createTransport({
             host:process.env.MAIL_HOST,
-            port: 587, // or 465 for SSL
-            secure: false, // true for 465, false for other ports
+            port: 587,
+            secure: false,
             auth:{
                 user:process.env.MAIL_USER,
                 pass:process.env.MAIL_PASS,
             },
-            // Add timeout configurations
-            connectionTimeout: 60000, // 60 seconds
-            greetingTimeout: 30000,   // 30 seconds
-            socketTimeout: 60000,     // 60 seconds
+            
+            connectionTimeout: 60000,
+            greetingTimeout: 30000,
+            socketTimeout: 60000,
+            pool: true,
+            maxConnections: 5,
+            maxMessages: 10,
         })
 
-        // Add timeout wrapper for the email sending
+        await transporter.verify();
+        
+        // Send email with increased timeout
         const info = await Promise.race([
             transporter.sendMail({
                 from: `"NITASPACE" <${process.env.MAIL_USER}>`,
@@ -26,7 +31,7 @@ exports.mailsender=async (email,title,body)=>{
                 html: `${body}`
             }),
             new Promise((_, reject) => 
-                setTimeout(() => reject(new Error('Email sending timeout')), 30000)
+                setTimeout(() => reject(new Error('Email sending timeout after 45 seconds')), 45000)
             )
         ]);
         
@@ -35,7 +40,17 @@ exports.mailsender=async (email,title,body)=>{
     }
     catch(err){
         console.log("Cannot Send email for Verification");
-        console.log(err.message);
+        console.log("Error details:", err.message);
+        
+        // More specific error handling
+        if (err.code === 'ECONNREFUSED') {
+            throw new Error('SMTP server connection refused. Check your email configuration.');
+        } else if (err.code === 'EAUTH') {
+            throw new Error('SMTP authentication failed. Check your email credentials.');
+        } else if (err.message.includes('timeout')) {
+            throw new Error('Email service timeout. Please try again later.');
+        }
+        
         throw err; // Re-throw the error so it can be handled upstream
     }
 }
