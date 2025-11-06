@@ -192,7 +192,7 @@ function ProductListing() {
         <div
           class="modal fade"
           id="filter"
-          tabindex="-1"
+          tabIndex="-1"
           aria-labelledby="exampleModalLabel"
           aria-hidden="true"
         >
