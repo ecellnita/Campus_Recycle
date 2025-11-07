@@ -19,7 +19,7 @@ function BuyerProductView() {
         console.log("calling fetch")
         try {
             const api_header = { 
-              Authorization: `Bearer ${localStorage.getItem('campusrecycletoken')}`,
+              Authorization: Bearer ${localStorage.getItem('campusrecycletoken')},
               "Content-Type": "multipart/form-data"
             };
             const bodyData = {
@@ -64,7 +64,7 @@ function BuyerProductView() {
         const buyerEmail = userObj.email;
         try {
             const api_header = { 
-              Authorization: `Bearer ${localStorage.getItem('campusrecycletoken')}`,
+              Authorization: Bearer ${localStorage.getItem('campusrecycletoken')},
               "Content-Type": "multipart/form-data"
             };
             const bodyData = {
@@ -89,7 +89,7 @@ function BuyerProductView() {
     const fetchProductDetails = async () => {
         try {
           const api_header = {
-            Authorization: `Bearer ${localStorage.getItem("campusrecycletoken")}`,
+            Authorization: Bearer ${localStorage.getItem("campusrecycletoken")},
             "Content-Type": "multipart/form-data",
           };
           const bodyData = {
@@ -209,13 +209,13 @@ function BuyerProductView() {
                         </h5>
                         <p>{product && product.quantity} left - {product && product.status}</p>
                         <div className='quantity-input'>
-                            <span className={`quantity-input-btn-plus ${productQuantity+1 > (product && product.quantity) ? 'disabled' : ''}`} onClick={()=>handleChangeProductQuantity("inc")} >
+                            <span className={quantity-input-btn-plus ${productQuantity+1 > (product && product.quantity) ? 'disabled' : ''}} onClick={()=>handleChangeProductQuantity("inc")} >
                                 <Plus/>
                             </span>
                             <span className='quantity-input-counter'>
                                 {productQuantity}
                             </span>
-                            <span className={`quantity-input-btn-minus ${productQuantity-1 < 0 ? 'disabled' : ''}`} onClick={()=>handleChangeProductQuantity("dec")} >
+                            <span className={quantity-input-btn-minus ${productQuantity-1 < 0 ? 'disabled' : ''}} onClick={()=>handleChangeProductQuantity("dec")} >
                                 <Minus/>
                             </span>
                         </div>

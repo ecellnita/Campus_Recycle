@@ -271,7 +271,7 @@ function ProductRequestElim({ request, handleDeleteProductRequest }) {
       <div
         class="modal fade"
         id={`delete_product_request_modal-${request._id}`}
-        tabindex="-1"
+        tabIndex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
@@ -312,7 +312,7 @@ function ProductRequestElim({ request, handleDeleteProductRequest }) {
       <div
         class="modal fade"
         id={`schedule_data_view_product_request_modal-${request._id}`}
-        tabindex="-1"
+        tabIndex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
@@ -391,7 +391,7 @@ function ProductRequestElim({ request, handleDeleteProductRequest }) {
       <div
         class="modal fade"
         id={`schedule_data_complete_request_modal-${request._id}`}
-        tabindex="-1"
+        tabIndex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
@@ -450,7 +450,7 @@ function ProductRequestElim({ request, handleDeleteProductRequest }) {
       <div
         class="modal fade"
         id={`schedule_data_report_product_modal-${request._id}`}
-        tabindex="-1"
+        tabIndex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >

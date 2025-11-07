@@ -17,26 +17,5 @@ const otpschema=new mongoose.Schema({
     },
 })
 
-otpschema.pre("save",async function(next){
-    try{
-        console.log(this.email,this.otp);
-        const mailresponse=await mailsender(this.email,"Verification Email From NITASPACE",otptemplate(this.otp))
-        console.log("mail response is =>",mailresponse);
-    }
-    catch(err){
-        console.log("Cannot save OTP");
-        console.log(err.message);
-    }
-    next();
-})
-
-
-
-
-
-
-
-
-
 
 module.exports=mongoose.model("Otp",otpschema);

@@ -102,3 +102,31 @@
     background-color: #f4f4f4;
     color: black;
 }
+
+.landing-navbar-right-btn-sec{
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+.landing-navbar-right-btn-login{
+    padding: 10px 10px;
+    width: 40%;
+    background-color: white;
+    border: 2px solid #38802C;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #38802C;
+    cursor: pointer;
+}
+.landing-navbar-right-btn-signup{
+    padding: 10px 10px;
+    width: 40%;
+    background-color: #38802C;
+    border: 2px solid #38802C;
+    border-radius: 5px;
+    font-size: 14px;
+    color: white;
+    cursor: pointer;
+    margin-left: 5%;
+}
