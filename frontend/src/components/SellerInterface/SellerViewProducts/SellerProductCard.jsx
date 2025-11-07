@@ -42,6 +42,7 @@ function SellerProductCard(props) {
     e.preventDefault();
     setIsLoading(true);
     console.log("product id: ", editFormData.productid);
+    console.log(editFormData)
     try {
       const api_header = {
         Authorization: `Bearer ${localStorage.getItem("campusrecycletoken")}`,

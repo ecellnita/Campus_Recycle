@@ -26,7 +26,7 @@ function AddProductForm() {
   const fetchAllCategories = async () => {
     try {
       const api_header = { 
-        Authorization: `Bearer ${localStorage.getItem("campusrecycletoken")}`,
+        Authorization: Bearer ${localStorage.getItem("campusrecycletoken")},
       };
       const response = await apiConnector(
         "POST",
@@ -69,7 +69,7 @@ function AddProductForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (productImageFiles.length < 6) {
+    if (productImageFiles.length < 5) {
       setIsImageAddErr(true);
       return;
     }
@@ -87,17 +87,17 @@ function AddProductForm() {
     });
 
     try {
-    const api_header = { 
-      Authorization: `Bearer ${localStorage.getItem("campusrecycletoken")}`,
-      "Content-Type": "multipart/form-data",
-    };
+      const api_header = { 
+        Authorization: Bearer ${localStorage.getItem("campusrecycletoken")},
+        "Content-Type": "multipart/form-data",
+      };
 
-    const response = await apiConnector(
-      "POST",
-      authroutes.ADD_PRODUCT,
-      formData,
-      api_header
-    );
+      const response = await apiConnector(
+        "POST",
+        authroutes.ADD_PRODUCT,
+        formData,
+        api_header
+      );
 
       if (response.data.success) {
         console.log("Product added successfully");
@@ -123,7 +123,7 @@ function AddProductForm() {
           localStorage.setItem("campusrecycleuser", JSON.stringify(userObj));
         }
       } else {
-        alert(`❌ Error: ${response.data.message}`);
+        alert(❌ Error: ${response.data.message});
       }
     } catch (error) {
       console.log("Error adding product:", error);
