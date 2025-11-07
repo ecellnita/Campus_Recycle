@@ -26,7 +26,7 @@ function AddProductForm() {
   const fetchAllCategories = async () => {
     try {
       const api_header = { 
-        Authorization: `Bearer ${localStorage.getItem("campusrecycletoken")}`,
+        Authorization: Bearer ${localStorage.getItem("campusrecycletoken")},
       };
       const response = await apiConnector(
         "POST",
@@ -88,7 +88,7 @@ function AddProductForm() {
 
     try {
       const api_header = { 
-        Authorization: `Bearer ${localStorage.getItem("campusrecycletoken")}`,
+        Authorization: Bearer ${localStorage.getItem("campusrecycletoken")},
         "Content-Type": "multipart/form-data",
       };
 
@@ -123,7 +123,7 @@ function AddProductForm() {
           localStorage.setItem("campusrecycleuser", JSON.stringify(userObj));
         }
       } else {
-        alert(`❌ Error: ${response.data.message}`);
+        alert(❌ Error: ${response.data.message});
       }
     } catch (error) {
       console.log("Error adding product:", error);
@@ -256,7 +256,7 @@ function AddProductForm() {
 
           {isImageAddErr && (
             <p style={{ color: "red", fontSize: "14px" }}>
-              ⚠️ You must add a minimum of 6 images
+              ⚠ You must add a minimum of 6 images
             </p>
           )}
         </div>

@@ -1,6 +1,6 @@
 import React from 'react'
 import './LandingFooter.css'
-import { Instagram, Facebook, Youtube, Linkedin } from 'lucide-react'
+import { Instagram, Facebook, X, Linkedin } from 'lucide-react'
 
 function LandingFooter() {
   return (
@@ -15,10 +15,18 @@ function LandingFooter() {
             </div>
         </div>
         <div className='landing-footer-social-media'>
-            <Linkedin className='landing-page-footer-bg'/>
-            <Instagram className='landing-page-footer-bg'/>
-            <Facebook className='landing-page-footer-bg'/>
-            <Youtube className='landing-page-footer-bg'/>
+            <a href="https://www.linkedin.com/company/ecellnita/?originalSubdomain=in" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                <Linkedin className='landing-page-footer-bg' size={40}/>
+            </a>
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <Instagram className='landing-page-footer-bg' size={40}/>
+            </a>
+            <a href="https://www.facebook.com/ecellnita/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                <Facebook className='landing-page-footer-bg' size={40}/>
+            </a>
+            <a href="https://x.com/nitaecell" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                <X className='landing-page-footer-bg' size={40}/>
+            </a>
         </div>
     </div>
   )
