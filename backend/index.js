@@ -18,6 +18,19 @@ const ratingandreviewsroutes=require("./routes/ratingandreviews");
 //
 
 console.log("Frontend URL:", process.env.HOST);
+
+// Add request timeout middleware
+app.use((req, res, next) => {
+    // Set timeout to 60 seconds for all requests
+    req.setTimeout(60000, () => {
+        res.status(408).json({
+            success: false,
+            message: "Request timeout"
+        });
+    });
+    next();
+});
+
 app.use(express.json())
 app.use(cookieparser());
 app.use(cors({
@@ -47,6 +60,16 @@ app.get("/",(req,res)=>{
         message:"Server is Up and Running.....",
     })
 })
+
+// Health check endpoint for Render
+app.get("/health", (req, res) => {
+    res.status(200).json({
+        success: true,
+        message: "Server is healthy",
+        timestamp: new Date().toISOString()
+    });
+});
+
 app.listen(PORT,()=>{
     console.log(`server is running at port ${PORT}`)
 })
