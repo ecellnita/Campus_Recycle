@@ -21,7 +21,7 @@ function BuyerNavbar() {
   }, []);
 
   const handleLogout = () => {
-    toast.info('🚀 You have successfully logged out. See you soon!', {
+    toast.info(' You have successfully logged out. See you soon!', {
       position: "top-right",
       autoClose: 3000,
       hideProgressBar: false,

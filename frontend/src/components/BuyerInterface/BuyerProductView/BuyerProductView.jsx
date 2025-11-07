@@ -5,6 +5,7 @@ import { apiConnector } from "../../../utils/Apiconnecter";
 import { authroutes } from "../../../apis/apis";
 import { useParams } from 'react-router-dom';
 import { GetContext } from '../../../context/ProductsProvider';
+import { toast } from 'react-toastify';
 
 function BuyerProductView() {
     const { product, setProduct } = GetContext();
@@ -54,7 +55,18 @@ function BuyerProductView() {
     const handleProductRequest = async() => {
         if(isRequested) return;
         if (productQuantity === 0){
-            alert("Please select at least one product");
+
+
+            toast.warn("Please select at least one product", {
+                  position: "top-right",
+                  autoClose: 3000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "colored",
+                });
             return;
         }
         setIsRequesting(true);
@@ -76,7 +88,18 @@ function BuyerProductView() {
             const response = await apiConnector("POST", authroutes.PRODUCT_REQUEST, bodyData, api_header);
             console.log(response.data);
             if (response.data.success) {
-              alert("Product requested");
+
+              toast.success("Product requested", {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                  });
+              
               setIsRequested(true);
             }
           } catch (error) {
