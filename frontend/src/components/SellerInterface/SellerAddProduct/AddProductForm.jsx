@@ -26,8 +26,8 @@ function AddProductForm() {
   const fetchAllCategories = async () => {
     try {
       const api_header = { 
-        Authorization: Bearer ${localStorage.getItem("campusrecycletoken")},
-      };
+        Authorization: `Bearer ${localStorage.getItem("campusrecycletoken")}`,
+      }
       const response = await apiConnector(
         "POST",
         authroutes.GET_ALL_CATEGORIES,
@@ -88,7 +88,7 @@ function AddProductForm() {
 
     try {
       const api_header = { 
-        Authorization: Bearer ${localStorage.getItem("campusrecycletoken")},
+        Authorization: `Bearer ${localStorage.getItem("campusrecycletoken")}`,
         "Content-Type": "multipart/form-data",
       };
 
@@ -123,7 +123,7 @@ function AddProductForm() {
           localStorage.setItem("campusrecycleuser", JSON.stringify(userObj));
         }
       } else {
-        alert(❌ Error: ${response.data.message});
+        alert(`❌ Error: ${response.data.message}`);
       }
     } catch (error) {
       console.log("Error adding product:", error);
