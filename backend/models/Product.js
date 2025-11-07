@@ -13,6 +13,7 @@ const productschema=new mongoose.Schema({
     },
     price:{
         type:Number,
+        min:[1,"Price cannot be less than 1"],
         required:true,
     },
     images:{
@@ -21,11 +22,12 @@ const productschema=new mongoose.Schema({
     },
     status:{
         type:String,
-        enum:["Sold","Purchased","Forsale"],
+        enum:["Sold","Purchased","For Sale"],
     },
     
     quantity:{
         type:Number,
+        min:[1,"Quantity cannot be less than 1"],
         default:1,
     },
     owner:{

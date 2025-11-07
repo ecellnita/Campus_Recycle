@@ -30,16 +30,16 @@ function LandingNavbar() {
             <div className="landing-navbar-left-logo">
                 <img src="./logo.png" alt="" />
             </div>
-            <div className="landing-navbar-left-explore">
+            {/* <div className="landing-navbar-left-explore">
                 <p>Explore &rarr;</p>
-            </div>
+            </div> */}
         </div>
         <div className="landing-navbar-right">
             <div class="dropdown">
                 <div class="dropbtn"><ChevronDown /></div>
                 <div class="dropdown-content">
                     <Link href="#">Contact Us</Link>
-                    <Link href="#">About</Link>
+                    <Link href="#" to='/aboutMotive'>About</Link>
                     <Link href="#">Feedback</Link>
                 </div>
             </div>
@@ -59,15 +59,15 @@ function LandingNavbar() {
                     <Plus style={{rotate: "45deg"}} size={30} onClick={toggleShowNav}/>
                 </div>
                 <div className="landing-hamberger-menu-btns">
-                    <button className='landing-hamberger-menu-btn-login'>Log in</button>
-                    <button className='landing-hamberger-menu-btn-signup'>Sign Up</button>
+                    <button className='landing-hamberger-menu-btn-login' onClick={e => navigate('/student-login')}>Log in</button>
+                    <button className='landing-hamberger-menu-btn-signup' onClick={e => navigate('/student-signup')}>Sign Up</button>
                     <button className='landing-hamberger-menu-btn-more' onClick={expandOrCollapseMore}>More <ChevronDown className={moreExpand ? 'rotate-90' : ''}/></button>
                 </div>
                 {
                     moreExpand &&
                     <div className='landing-hamberger-menu-more-expanded'>
                         <Link href="#">Contact Us</Link>
-                        <Link href="#">About</Link>
+                        <Link href="#" to='/aboutMotive'>About</Link>
                         <Link href="#">Feedback</Link>
                     </div>
                 }

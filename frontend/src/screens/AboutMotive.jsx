@@ -6,11 +6,10 @@ import AboutContent from '../components/About/AboutContent'
 import LandingFooter from '../components/CommonInterface/Landing/LandingFooter/LandingFooter'
 import AboutBenifits from '../components/About/AboutBenifits'
 
-function About() {
+function AboutMotive() {
   return (
     <>
-        
-        <BuyerNavbar/>
+        <LandingNavbar/>
         <AboutHero/>
         <AboutContent/>
         <AboutBenifits/>
@@ -19,4 +18,4 @@ function About() {
   )
 }
 
-export default About
+export default AboutMotive

@@ -7,6 +7,10 @@ import { X } from "lucide-react";
 
 function AddProductForm() {
   const [isLoading, setIsLoading] = useState(false);
+  const [isImageAddErr, setIsImageAddErr] = useState(false);
+  const [productImageFiles, setProductImageFiles] = useState([]);
+  const [allCategories, setAllCategories] = useState([]);
+
   const [addProductData, setAddProductData] = useState({
     productname: "",
     productdescription: "",
@@ -15,116 +19,121 @@ function AddProductForm() {
     quantity: "",
     categoryid: "",
   });
-  const [isImageAddErr, setIsImageAddErr] = useState(false);
-  const [productImageFiles, setProductImageFiles] = useState([]);
-  const [allCategories, setAllCategories] = useState([]);
 
   const imagesInputRef = useRef();
   const addProductFormRef = useRef();
 
-  const fetchAllCategories = async() => {
+  const fetchAllCategories = async () => {
     try {
-        const api_header = { 
-          Authorization: `Bearer ${localStorage.getItem('campusrecycletoken')}`,
-          "Content-Type": "multipart/form-data"
-        };
-        const bodyData = {
-            // Need to write something
-        }
-        const response = await apiConnector("POST", authroutes.GET_ALL_CATEGORIES, bodyData, api_header);
-        console.log(response.data);
-        if (response.data.success) {
-            console.log("Categories fetched successfully");
-            setAllCategories(response.data.data);
-        }
+      const api_header = { 
+        Authorization: `Bearer ${localStorage.getItem("campusrecycletoken")}`,
+      };
+      const response = await apiConnector(
+        "POST",
+        authroutes.GET_ALL_CATEGORIES,
+        {},
+        api_header
+      );
+
+      if (response.data.success) {
+        console.log("Categories fetched successfully");
+        setAllCategories(response.data.data);
+      } else {
+        console.log("Failed to fetch categories:", response.data.message);
+      }
     } catch (error) {
-        console.log(error);
+      console.log("Error fetching categories:", error);
     }
-  }
+  };
 
   const handleOnChange = (e) => {
-    console.log(e.target.value)
     setAddProductData({ ...addProductData, [e.target.name]: e.target.value });
+  };
+
+  const productImagefilesOnchange = (e) => {
+    const newFiles = [...productImageFiles];
+    for (let file of e.target.files) {
+      if (!newFiles.find((f) => f.name === file.name && f.size === file.size)) {
+        newFiles.push(file);
+      }
+    }
+    setProductImageFiles(newFiles);
+    setIsImageAddErr(false);
+  };
+
+  const removeProductImageFile = (fileToDelete) => {
+    const newFiles = productImageFiles.filter((file) => file !== fileToDelete);
+    setProductImageFiles(newFiles);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if(productImageFiles < 6){
-      return setIsImageAddErr(true);
+    if (productImageFiles.length < 6) {
+      setIsImageAddErr(true);
+      return;
     }
 
     setIsLoading(true);
 
-    var formData = new FormData();
+    const formData = new FormData();
 
-    for (var key in addProductData) {
-        formData.append(key, addProductData[key]);
+    for (const key in addProductData) {
+      formData.append(key, addProductData[key]);
     }
 
-    for (let i = 0; i < imagesInputRef.current.files.length; i++) {
-      formData.append('images', productImageFiles[i], productImageFiles[i].name);
-    }
-    
+    productImageFiles.forEach((file) => {
+      formData.append("images", file, file.name);
+    });
+
     try {
-      console.log(addProductData)
-      const api_header = { 
-        Authorization: `Bearer ${localStorage.getItem('campusrecycletoken')}`,
-        "Content-Type": "multipart/form-data"
-      };
-      const response = await apiConnector("POST", authroutes.ADD_PRODUCT, formData, api_header);
-      console.log(response.data);
+    const api_header = { 
+      Authorization: `Bearer ${localStorage.getItem("campusrecycletoken")}`,
+      "Content-Type": "multipart/form-data",
+    };
+
+    const response = await apiConnector(
+      "POST",
+      authroutes.ADD_PRODUCT,
+      formData,
+      api_header
+    );
+
       if (response.data.success) {
+        console.log("Product added successfully");
+        alert("✅ Product added successfully!");
+
         setAddProductData({
           productname: "",
           productdescription: "",
           price: "",
-          status: "",
+          status: "For Sale",
           quantity: "",
           categoryid: "",
         });
-        console.log("Product added");
-        alert("Product added successfully");
         setProductImageFiles([]);
         imagesInputRef.current.value = null;
         addProductFormRef.current.reset();
-        setIsLoading(false);
-        const user = localStorage.getItem('campusrecycleuser');
-        const userObj = JSON.parse(user);
-        const allProductIds = userObj.products;
-        allProductIds.push(response.data.data._id);
-        userObj.products = allProductIds;
-        localStorage.setItem('campusrecycleuser', JSON.stringify(userObj));
-      }else{
-        alert(`Error: ${response.data.message}`);
-        setIsLoading(false);
+
+
+        const user = localStorage.getItem("campusrecycleuser");
+        if (user) {
+          const userObj = JSON.parse(user);
+          userObj.products.push(response.data.data._id);
+          localStorage.setItem("campusrecycleuser", JSON.stringify(userObj));
+        }
+      } else {
+        alert(`❌ Error: ${response.data.message}`);
       }
     } catch (error) {
-      console.log(error);
+      console.log("Error adding product:", error);
+      alert("Something went wrong while adding the product!");
+    } finally {
       setIsLoading(false);
     }
   };
 
-  const productImagefilesOnchange = (e) => {
-    var files = [];
-    for(let file of productImageFiles){
-      files.push(file);
-    }
-    for(let file of e.target.files){
-      console.log("file: ", file);
-      files.push(file);
-    }
-    setProductImageFiles(files); 
-  }
-
-  const removeProductImageFile = (fileToDelete) => {
-    const allFiles = productImageFiles;
-    const newFiles = allFiles.filter((file)=>file!==fileToDelete);
-
-    setProductImageFiles(newFiles);
-  }
-
-  useEffect(()=>{
+  useEffect(() => {
     fetchAllCategories();
   }, []);
 
@@ -134,6 +143,7 @@ function AddProductForm() {
         <div className="add-product-form-heading">
           <h3>Add New Product</h3>
         </div>
+
         <div className="add-product-form-body">
           <div className="form-block">
             <div className="form-segment">
@@ -144,19 +154,24 @@ function AddProductForm() {
                 name="productname"
                 value={addProductData.productname}
                 onChange={handleOnChange}
+                required
               />
             </div>
+
             <div className="form-segment">
               <label htmlFor="price">Price</label>
               <input
                 type="number"
                 id="price"
                 name="price"
+                min="1"
                 value={addProductData.price}
                 onChange={handleOnChange}
+                required
               />
             </div>
           </div>
+
           <div className="form-block">
             <div className="form-segment">
               <label htmlFor="status">Status</label>
@@ -164,24 +179,27 @@ function AddProductForm() {
                 id="status"
                 name="status"
                 value={addProductData.status}
-                defaultValue={'Forsale'}
                 onChange={handleOnChange}
               >
-                <option value="Forsale">Forsale</option>
+                <option value="For Sale">For Sale</option>
                 <option value="Sold">Sold</option>
                 <option value="Purchased">Purchased</option>
               </select>
             </div>
+
             <div className="form-segment">
               <label htmlFor="quantity">Quantity</label>
               <input
                 type="number"
                 id="quantity"
                 name="quantity"
+                min="1"
                 value={addProductData.quantity}
                 onChange={handleOnChange}
+                required
               />
             </div>
+
             <div className="form-segment">
               <label htmlFor="categoryid">Category</label>
               <select
@@ -191,71 +209,85 @@ function AddProductForm() {
                 onChange={handleOnChange}
                 required
               >
-                <option>Select category</option>
-                {
-                  allCategories.map((category, i)=>{
-                    return <option value={category._id}>{category.name}</option>
-                  })
-                }
+                <option value="">Select category</option>
+                {allCategories.map((category) => (
+                  <option key={category._id} value={category._id}>
+                    {category.name}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
         </div>
+
         <div className="form-block-text">
           <label htmlFor="productdescription">Product Description</label>
           <textarea
-            type="text"
             rows={10}
-            cols={10}
             id="productdescription"
             name="productdescription"
             value={addProductData.productdescription}
             onChange={handleOnChange}
+            required
           />
         </div>
+
         <div className="add-product-form-attachments">
-          <div>
-            <label htmlFor="product_imaged">Upload Images</label>
-            <input
-              type="file"
-              id="product_imaged"
-              accept=".jpg, .png, .jpeg"
-              name="images"
-              ref={imagesInputRef}
-              onChange={(e)=>productImagefilesOnchange(e)}
-              multiple
-              hidden
-            />
-            {
-                productImageFiles.map((file, i)=>{
-                return <div key={i} className="product_img_file_div">
-                  <span>{file.name.slice(0, 30)+'...'}</span>
-                  <X style={{ cursor: 'pointer', margin: '0 5px' }} onClick={()=>removeProductImageFile(file)}/>
-                </div>
-              })
-            }
-            {
-              isImageAddErr && <p style={{ color: 'red', fontSize: '15px', textAlign: 'left' }}>You must add minimum 6 images</p>
-            }
-          </div>
+          <label htmlFor="product_images">Upload Images</label>
+          <input
+            type="file"
+            id="product_images"
+            accept=".jpg, .png, .jpeg"
+            name="images"
+            ref={imagesInputRef}
+            onChange={productImagefilesOnchange}
+            multiple
+          />
+
+          {productImageFiles.map((file, i) => (
+            <div key={i} className="product_img_file_div">
+              <span>{file.name.length > 30 ? file.name.slice(0, 30) + "..." : file.name}</span>
+              <X
+                style={{ cursor: "pointer", marginLeft: "8px" }}
+                onClick={() => removeProductImageFile(file)}
+              />
+            </div>
+          ))}
+
+          {isImageAddErr && (
+            <p style={{ color: "red", fontSize: "14px" }}>
+              ⚠ You must add a minimum of 6 images
+            </p>
+          )}
         </div>
+
         <div className="add-product-form-footer">
           <button
-            onClick={() =>
+            type="button"
+            onClick={() => {
               setAddProductData({
                 productname: "",
                 productdescription: "",
                 price: "",
-                status: "",
+                status: "For Sale",
                 quantity: "",
                 categoryid: "",
-              })
-            }
+              });
+              setProductImageFiles([]);
+              imagesInputRef.current.value = null;
+            }}
           >
             Cancel
           </button>
-          <button type="sumbit" disabled={isLoading} style={{padding: isLoading ? '1px 10px' : ''}}>
-            Add Product {isLoading && <Spinner className="add-product-spinner"/>}
+
+          <button type="submit" disabled={isLoading}>
+            {isLoading ? (
+              <>
+                Adding... <Spinner size="sm" className="add-product-spinner" />
+              </>
+            ) : (
+              "Add Product"
+            )}
           </button>
         </div>
       </form>
