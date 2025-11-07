@@ -43,10 +43,10 @@ function SellerSidebar() {
               <CircleGauge size={20}/>
               <span>Dashboard</span>
             </Link>
-            <Link className="active-sidebar-link">
+            {/* <Link className="active-sidebar-link">
               <Globe size={20}/>
               <span>Explore</span>
-            </Link>
+            </Link> */}
           </div>
           <span>
             <p>ON BOARDING</p>

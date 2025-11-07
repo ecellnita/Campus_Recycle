@@ -3,6 +3,7 @@ import SellerSidebar from '../components/SellerInterface/SellerDashboard/SellerS
 import SellerTopNavbar from '../components/SellerInterface/SellerDashboard/SellerTopNavbar';
 import SellerOverview from '../components/SellerInterface/SellerDashboard/SellerOverview';
 import { useNavigate } from 'react-router-dom';
+import './SellerDashboard.css';
 
 function SellerDashboard() {
   const navigate = useNavigate();
@@ -13,15 +14,15 @@ function SellerDashboard() {
     }
   }, []);
   return (
-    <>
-      <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+    <div className="seller-dashboard-container">
+      <div className="seller-dashboard-header">
         <SellerSidebar/>
         <SellerTopNavbar/>
       </div>
-      <div style={{display: 'flex', justifyContent: 'end', alignItems: 'center'}}>
+      <div className="seller-dashboard-content">
         <SellerOverview/>
       </div>
-    </>
+    </div>
   )
 }
 
