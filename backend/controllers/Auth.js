@@ -28,13 +28,13 @@ exports.sendotp=async (req,res)=>{
                 message:"User already Registered",
             })
         }
-        const otp=otpgenerator.generate(6,{
+        let otp=otpgenerator.generate(6,{
             upperCaseAlphabets:false,
             lowerCaseAlphabets:false,
             specialChars:false,
         })
-        const checkotp=await Otp.findOne({otp});
-        if(checkotp){
+        let checkotp=await Otp.findOne({otp});
+        while(checkotp){
             otp=otpgenerator.generate(6,{
                 upperCaseAlphabets:false,
                 lowerCaseAlphabets:false,
@@ -43,18 +43,35 @@ exports.sendotp=async (req,res)=>{
             checkotp=await Otp.findOne({otp});
         }
 
-        const otpdata=await Otp.create({email,otp});
+        // Create OTP entry in database first
+        const otpdata = await Otp.create({email, otp});
+        
+        // Send email asynchronously using queue system for better reliability
+        setImmediate(async () => {
+            try {
+                const {sendEmailWithRetry} = require("../utils/EmailQueue");
+                const {otptemplate} = require("../mailtemplates/VerificationOtp");
+                
+                console.log("Adding OTP email to queue for:", email);
+                await sendEmailWithRetry(email, "Verification Email From NITASPACE", otptemplate(otp));
+                
+            } catch (emailError) {
+                console.log("Failed to queue OTP email:", emailError.message);
+                // Email will be retried automatically by the queue system
+            }
+        });
+        
         res.json({
             success:true,
-            messsage:"OTP send Successfully",
+            message:"OTP generated successfully. Please check your email (may take a few moments).",
             data:otpdata,
         })
     }
     catch(err){
-        console.log("Cannot send OTp");
+        console.log("Cannot send OTP: ", err);
         return res.json({
             success:false,
-            message:"could not send OTP",
+            message: err.message === 'OTP creation timeout' ? "Email service timeout. Please try again." : "Could not send OTP",
         })
     }
 }

@@ -3,11 +3,16 @@ import "./AddProductFrom.css";
 import Spinner from "react-bootstrap/Spinner";
 import { apiConnector } from "../../../utils/Apiconnecter";
 import { authroutes } from "../../../apis/apis";
-import { X } from "lucide-react";
-import { toast } from "react-toastify";
+import { Tags, X } from "lucide-react";
+import { ToastContainer, toast } from 'react-toastify';
+
 
 function AddProductForm() {
   const [isLoading, setIsLoading] = useState(false);
+  const [isImageAddErr, setIsImageAddErr] = useState(false);
+  const [productImageFiles, setProductImageFiles] = useState([]);
+  const [allCategories, setAllCategories] = useState([]);
+
   const [addProductData, setAddProductData] = useState({
     productname: "",
     productdescription: "",
@@ -16,147 +21,153 @@ function AddProductForm() {
     quantity: "",
     categoryid: "",
   });
-  const [isImageAddErr, setIsImageAddErr] = useState(false);
-  const [productImageFiles, setProductImageFiles] = useState([]);
-  const [allCategories, setAllCategories] = useState([]);
 
   const imagesInputRef = useRef();
   const addProductFormRef = useRef();
 
   const fetchAllCategories = async () => {
     try {
-      const api_header = {
+      const api_header = { 
         Authorization: `Bearer ${localStorage.getItem("campusrecycletoken")}`,
-        "Content-Type": "multipart/form-data",
-      };
-      const bodyData = {
-        // Need to write something
-      };
+      }
       const response = await apiConnector(
         "POST",
         authroutes.GET_ALL_CATEGORIES,
-        bodyData,
+        {},
         api_header
       );
-      console.log(response.data);
+
       if (response.data.success) {
         console.log("Categories fetched successfully");
         setAllCategories(response.data.data);
+      } else {
+        console.log("Failed to fetch categories:", response.data.message);
       }
     } catch (error) {
-      console.log(error);
+      console.log("Error fetching categories:", error);
     }
   };
 
   const handleOnChange = (e) => {
-    console.log(e.target.value);
     setAddProductData({ ...addProductData, [e.target.name]: e.target.value });
+  };
+
+  const productImagefilesOnchange = (e) => {
+    const newFiles = [...productImageFiles];
+    console.log(e.target.files)
+    for (let file of e.target.files) {
+      if (!newFiles.find((f) => f.name === file.name && f.size === file.size)) {
+        newFiles.push(file);
+      }
+    }
+    setProductImageFiles(newFiles);
+    setIsImageAddErr(false);
+  };
+
+  const removeProductImageFile = (fileToDelete) => {
+    const newFiles = productImageFiles.filter((file) => file !== fileToDelete);
+    setProductImageFiles(newFiles);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (productImageFiles < 6) {
-      return setIsImageAddErr(true);
+    if (productImageFiles.length < 3) {
+      setIsImageAddErr(true);
+      return;
     }
 
     setIsLoading(true);
 
-    var formData = new FormData();
+    const formData = new FormData();
 
-    for (var key in addProductData) {
+    for (const key in addProductData) {
       formData.append(key, addProductData[key]);
     }
 
-    for (let i = 0; i < imagesInputRef.current.files.length; i++) {
-      formData.append(
-        "images",
-        productImageFiles[i],
-        productImageFiles[i].name
-      );
-    }
+    productImageFiles.forEach((file) => {
+      formData.append("images", file, file.name);
+    });
 
     try {
-      console.log(addProductData);
-      const api_header = {
+      const api_header = { 
         Authorization: `Bearer ${localStorage.getItem("campusrecycletoken")}`,
         "Content-Type": "multipart/form-data",
       };
+
       const response = await apiConnector(
         "POST",
         authroutes.ADD_PRODUCT,
         formData,
         api_header
       );
-      console.log(response.data);
+
       if (response.data.success) {
+
+        toast.success(" Product added successfully!",
+          {
+             position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+          }
+        );
+        
+
         setAddProductData({
           productname: "",
           productdescription: "",
           price: "",
-          status: "",
+          status: "For Sale",
           quantity: "",
           categoryid: "",
         });
-        console.log("Product added");
-
-        toast.success(" Product added Succesfully", {
-          position: "top-center",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
-
         setProductImageFiles([]);
         imagesInputRef.current.value = null;
         addProductFormRef.current.reset();
-        setIsLoading(false);
+
+
         const user = localStorage.getItem("campusrecycleuser");
-        const userObj = JSON.parse(user);
-        const allProductIds = userObj.products;
-        allProductIds.push(response.data.data._id);
-        userObj.products = allProductIds;
-        localStorage.setItem("campusrecycleuser", JSON.stringify(userObj));
+        if (user) {
+          const userObj = JSON.parse(user);
+          userObj.products.push(response.data.data._id);
+          localStorage.setItem("campusrecycleuser", JSON.stringify(userObj));
+        }
       } else {
-        toast.error(` Error: ${response.data.message}`, {
-          position: "top-right",
-          autoClose: 4000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
-        setIsLoading(false);
+
+         toast.error(`❌ Error: ${response.data.message}`, {
+              position: "top-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+            });
+
+        
       }
     } catch (error) {
-      console.log(error);
+      console.log("Error adding product:", error);
+
+       toast.error(`Something went wrong while adding the product!`, {
+              position: "top-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+            });
+    } finally {
       setIsLoading(false);
     }
-  };
-
-  const productImagefilesOnchange = (e) => {
-    var files = [];
-    for (let file of productImageFiles) {
-      files.push(file);
-    }
-    for (let file of e.target.files) {
-      console.log("file: ", file);
-      files.push(file);
-    }
-    setProductImageFiles(files);
-  };
-
-  const removeProductImageFile = (fileToDelete) => {
-    const allFiles = productImageFiles;
-    const newFiles = allFiles.filter((file) => file !== fileToDelete);
-
-    setProductImageFiles(newFiles);
   };
 
   useEffect(() => {
@@ -174,7 +185,7 @@ function AddProductForm() {
       quantity.trim() !== "" &&
       categoryid.trim() !== "";
 
-    const hasMinImages = productImageFiles.length >= 6;
+    const hasMinImages = productImageFiles.length >= 3;
 
     return isAllFieldsFilled && hasMinImages;
   };
@@ -184,7 +195,7 @@ function AddProductForm() {
       <div className="left-add-product-form">
         <form onSubmit={handleSubmit} ref={addProductFormRef}>
           <div className="add-product-form-heading">
-            <h3>Add New Product</h3>
+            <h3> <Tags/>  Add New Product</h3>
           </div>
           <div className="add-product-form-body">
             <div className="form-block">
@@ -196,6 +207,7 @@ function AddProductForm() {
                   name="productname"
                   value={addProductData.productname}
                   onChange={handleOnChange}
+                  placeholder="name"
                 />
               </div>
               <div className="form-segment">
@@ -205,6 +217,7 @@ function AddProductForm() {
                   id="price"
                   name="price"
                   value={addProductData.price}
+                  placeholder="₹"
                   onChange={handleOnChange}
                 />
               </div>
@@ -216,6 +229,7 @@ function AddProductForm() {
                 <input
                   type="number"
                   id="quantity"
+                  placeholder="eg.. 4"
                   name="quantity"
                   value={addProductData.quantity}
                   onChange={handleOnChange}
@@ -234,6 +248,7 @@ function AddProductForm() {
               name="productdescription"
               value={addProductData.productdescription}
               onChange={handleOnChange}
+              placeholder="......"
             />
           </div>
           <div className="add-product-form-attachments">
@@ -264,7 +279,7 @@ function AddProductForm() {
                 <p
                   style={{ color: "red", fontSize: "15px", textAlign: "left" }}
                 >
-                  You must add minimum 6 images
+                  You must add minimum 3 images
                 </p>
               )}
             </div>
@@ -293,7 +308,7 @@ function AddProductForm() {
                 cursor: isFormValid() ? "pointer" : "not-allowed",
               }}
             >
-              Add Product{" "}
+            Add Product{" "}
               {isLoading && <Spinner className="add-product-spinner" />}
             </button>
           </div>

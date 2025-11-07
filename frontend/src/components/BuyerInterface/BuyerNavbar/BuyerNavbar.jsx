@@ -14,14 +14,14 @@ function BuyerNavbar() {
   const toggleProfileDrop = () => {
     setProfileDrop(!profileDrop);
   };
-
+  
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("campusrecycleuser"));
     setProfilePicture(user?.image);
   }, []);
 
   const handleLogout = () => {
-    toast.info('🚀 You have successfully logged out. See you soon!', {
+    toast.info(' You have successfully logged out. See you soon!', {
       position: "top-right",
       autoClose: 3000,
       hideProgressBar: false,
@@ -65,7 +65,7 @@ function BuyerNavbar() {
           <Link className="buyer-navbar-options-item" to='/about'>About</Link>
           {/* <Link className="buyer-navbar-options-item">Reviews</Link> */}
         </div>
-        <div className="buyer-navbar-accounts">
+        {<div className="buyer-navbar-accounts">
           <div className="toggle" onClick={toggleProfileDrop}>
             <Menu size={20} />
             <img
@@ -86,7 +86,7 @@ function BuyerNavbar() {
               </Link>
             </div>
           )}
-        </div>
+        </div>}
       </div>
     </>
   );

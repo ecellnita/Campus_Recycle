@@ -14,9 +14,12 @@ export const ProductProvider = (props) => {
 
   const getAllProducts = async() => {
     try {
-      const response = await axios.post('https://campus-recycle.onrender.com/api/v1/product/getallproduct', {
+      const response = await axios.post('https://api.recycool.ecellnita.in/api/v1/product/getallproduct', {
         headers: { Authorization: `Bearer ${localStorage.getItem('campusrecycletoken')}` }
       });
+      // const response = await axios.post('http://localhost:4000/api/v1/product/getallproduct', {
+      //   headers: { Authorization: `Bearer ${localStorage.getItem('campusrecycletoken')}` }
+      // });
       // console.log(response.data.data);
       if(response.data.success){
         setAllProducts(response.data.data);
